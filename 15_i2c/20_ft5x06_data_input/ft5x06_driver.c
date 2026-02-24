@@ -5,10 +5,14 @@
 #include <linux/gpio/consumer.h>
 #include <linux/interrupt.h>
 #include <linux/delay.h>
+#include <linux/input.h>
 
 struct gpio_desc *reset_gpio;
 struct gpio_desc *irq_gpio;
 struct i2c_client * ft5x06_client;
+struct input_dev *ft5x06_input_dev;
+
+
 int ft5x06_read_reg(u8 reg_addr){
     u8 data;
     struct i2c_msg msgs[] = {
@@ -73,18 +77,43 @@ int ft5x06_probe(struct i2c_client *client, const struct i2c_device_id *id){
     msleep(5);
     gpiod_direction_output(reset_gpio, 1);
     
-    ret = request_irq(client->irq, ft5x06_handler, IRQ_TYPE_EDGE_FAILLING | IRQF_ONESHOT, "ftx506_irq", NULL);
+    ret = request_irq(client->irq, ft5x06_handler, IRQ_TYPE_EDGE_FAILLING | IRQF_ONESHOT, "ftx506_irq", NULL);//这里的中断的触发需要和设备树之中的触发方式一样。
     if (ret < 0)
     {
         printk("request_irq is error\n");
         return -2;
     }
+    ft5x06_input_dev = input_allocate_device();
+    if (ft5x06_input_dev == NULL)
+    {
+        printk("input_allocate_device is error \n");
+        return -2;
+    }
+    ft5x06_input_dev->name = "ft5x06_dev";
+    __set_bit(EV_KEY, ft5x06_input_dev->evbit);
+    __set_bit(BTN_TOUCH, ft5x06_input_dev->keybit);
 
-    ft5x06_wirte_reg(0x08, 0x4b, 1);
-    value = ft5x06_read_reg(0x08);
-    printk("reg 0x08 value is %d", value);
+    __set_bit(EV_ABS, ft5x06_input_dev->evbit);
+    __set_bit(ABS_X, ft5x06_input_dev->absbit);
+    __set_bit(ABS_Y, ft5x06_input_dev->absbit);
+
+    input_set_abs_params(ft5x06_input_dev, ABS_X, 0, 1024, 0, 0);
+    input_set_abs_params(ft5x06_input_dev, ABS_Y, 0, 600, 0, 0);
+
+    ret = input_register_device(ft5x06_input_dev);
+    if (ret < 0)
+    {
+        printk("input register_device is error\n");
+        goto error_0;
+    }
     
-    return 0;
+    
+error_0:
+    input_free_device(ft5x06_input_dev);
+    free_irq(client->irq, NULL);
+    gpiod_put(reset_gpio);
+    gpiod_put(irq_gpio);
+;    return 0;
 }
 int ft5x06_remove(struct i2c_client *client){
     printk(KERN_INFO"this is ft5x06_remove\n");
@@ -119,6 +148,10 @@ static int ft5x06_driver_init(void)
 }
 static int ft5x06_driver_exit(void)
 {
+    free_irq(ft5x06_client->irq, NULL);
+    input_unregister_device(ft5x06_input_dev);
+    gpiod_put(reset_gpio);
+    gpiod_put(irq_gpio);
     i2c_del_driver(&ft5x06_driver);
 }
 
