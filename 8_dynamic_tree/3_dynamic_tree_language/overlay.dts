@@ -1,0 +1,38 @@
+/dts-v1/;
+/plugin/;
+//方法一
+//{}之中是节点的路径
+&{/rk-485-ctl}{
+    overlay_node{
+        status = "okay";
+    };
+};
+//方法二
+//直接对别名进行引用
+&rk_485_ctl{
+    overlay_node{
+        status = "okay";
+    };
+};
+
+//方法三
+
+/{
+    fragment@0{
+        target-path="/rk-485-ctl";
+        __overlay__{
+            overlay_node{
+                status = "okay";
+            };
+        };
+    };
+//或者使用别名
+    fragment@0{
+        target-path=<&rk_485_ctl>;
+        __overlay__{
+            overlay_node{
+                status = "okay";
+            };
+        };
+    };
+};

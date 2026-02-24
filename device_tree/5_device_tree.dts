@@ -1,0 +1,28 @@
+ /dts-v1/;
+ /{
+    
+    model = "this is my dts";
+    #address-cell = <1>;
+    #size-cell = <1>;
+    aliases{
+        led1 = &led;
+        serial = "/uart1@0xfffeee" //根节点节点下的没有别名的设备节点的引用。
+    }
+    node{
+        #address-cell = <1>;
+        #size-cell = <0>;
+        node-child{
+            reg = <0x0000010000>;
+        };
+    };
+    led:gpio@0x00029293282{
+        node-child{~
+            status = okay;
+            compatible = "";
+            led-gpios = <&gpio1 RK_P5 ACTIVE_LEVE_LOW>;
+        };
+    };
+    uart1@0xfffeee{
+        
+    };
+ };

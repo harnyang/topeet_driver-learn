@@ -1,0 +1,114 @@
+// {
+//     "configurations": [
+//         {
+//             "compilerPath": "/usr/bin/gcc",
+//             "cppStandard": "gnu++14",
+//             "cStandard": "gnu11",
+//             "defines": [
+//                 "__KERNEL__",
+//                 "MODULE",
+//                 "__linux__",
+//                 "__arm64__"
+//             ],
+//             "includePath": [
+//                 "${workspaceFolder}/**",
+//                 "/home/harn/rk3568_linux_sdk/kernel/arch/arm64/include",
+//                 "/home/harn/rk3568_linux_sdk/kernel/include",
+//                 "/home/harn/rk3568_linux_sdk/kernel/arch/arm64/include/generated",
+//                 "/home/harn/rk3568_linux_sdk/kernel/include/asm-generic"
+//             ],
+//             "intelliSenseMode": "gcc-x64",
+//             "name": "Linux"
+//         }
+//     ],
+//     "version": 4
+// }
+// {
+//     "configurations": [
+//         {
+//             "browse": {
+//                 "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+//                 "limitSymbolsToIncludedHeaders": true,
+//                 "path": [
+//                     "/home/harn/rk3568_linux_sdk/kernel",
+//                     "${workspaceFolder}"
+//                 ]
+//             },
+//             "compilerPath": "/usr/bin/gcc",
+//             "cppStandard": "gnu++14",
+//             "cStandard": "gnu11",
+//             "defines": [
+//                 "__KERNEL__",
+//                 "__linux__",
+//                 "__arm64__",
+//                 "MODULE",
+//                 "CONFIG_64BIT",
+//                 "CONFIG_ARM64",
+//                 "CONFIG_ARCH_ROCKCHIP"
+//             ],
+//             "includePath": [
+//                 "${workspaceFolder}/**",
+//                 // 内核通用头文件
+//                 "/home/harn/rk3568_linux_sdk/kernel/include",
+//                 "/home/harn/rk3568_linux_sdk/kernel/include/uapi", //此项会影响。无法打开 源 文件 "asm-generic/shmparam.h" (dependency of "linux/ide.h")
+//                 "/home/harn/rk3568_linux_sdk/kernel/arch/arm64/include",
+//                 // "/home/harn/rk3568_linux_sdk/kernel/arch/arm64/include/uapi",
+//                 "/home/harn/rk3568_linux_sdk/kernel/arch/arm64/include/generated",
+//                 // "/home/harn/rk3568_linux_sdk/kernel/arch/arm64/include/generated/uapi",
+//                 // asm-generic 路径
+//                 "/home/harn/rk3568_linux_sdk/kernel/include/asm-generic"
+//                 // 工具链头文件
+//                 // "/usr/lib/gcc/aarch64-linux-gnu/*/include",
+//                 // "/usr/aarch64-linux-gnu/include"
+//             ],
+//             "intelliSenseMode": "linux-gcc-arm64",
+//             "name": "RK3568 Kernel"
+//         }
+//     ],
+//     "version": 4
+// }
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/harn/rk3568_linux_sdk/kernel",
+                    "${workspaceFolder}"
+                ]
+            },
+            "compilerPath": "/home/harn/rk3568_linux_sdk/prebuilts/gcc/linux-x86/aarch64/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc",
+            "cppStandard": "gnu++14",
+            "cStandard": "gnu11",
+            "defines": [
+                "__KERNEL__",
+                "__linux__",
+                "__arm64__",
+                "__aarch64__",
+                "MODULE",
+                "CONFIG_64BIT",
+                "CONFIG_ARM64",
+                "CONFIG_ARCH_ROCKCHIP"
+            ],
+            "includePath": [
+                "${workspaceFolder}/**",
+                // 内核头文件路径（按照内核编译时的实际顺序）
+                "/home/harn/rk3568_linux_sdk/kernel/include",
+                "/home/harn/rk3568_linux_sdk/kernel/arch/arm64/include",
+                "/home/harn/rk3568_linux_sdk/kernel/arch/arm64/include/generated",
+                "/home/harn/rk3568_linux_sdk/kernel/include/uapi",
+                "/home/harn/rk3568_linux_sdk/kernel/arch/arm64/include/uapi",
+                "/home/harn/rk3568_linux_sdk/kernel/arch/arm64/include/generated/uapi",
+                "/home/harn/rk3568_linux_sdk/kernel/include/asm-generic",
+                "/home/harn/rk3568_linux_sdk/kernel/include/asm-generic/uapi",
+                // 工具链标准头文件
+                "/home/harn/rk3568_linux_sdk/prebuilts/gcc/linux-x86/aarch64/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/aarch64-linux-gnu/libc/usr/include",
+                "/home/harn/rk3568_linux_sdk/prebuilts/gcc/linux-x86/aarch64/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/lib/gcc/aarch64-linux-gnu/6.3.1/include"
+            ],
+            "intelliSenseMode": "linux-gcc-arm64",
+            "name": "RK3568 Kernel (Linaro GCC 6.3.1)"
+        }
+    ],
+    "version": 4
+}

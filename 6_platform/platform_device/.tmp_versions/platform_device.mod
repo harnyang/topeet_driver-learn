@@ -1,0 +1,3 @@
+/home/harn/LearnDriver/6_platform/platform_device/platform_device.ko
+/home/harn/LearnDriver/6_platform/platform_device/platform_device.o
+

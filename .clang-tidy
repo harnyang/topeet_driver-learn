@@ -1,0 +1,10 @@
+Checks: "
+        -*,
+        clang-analyzer-*, 
+        readability-identifier-*,
+        cppcoreguidelines-*,
+        modernize-*,
+        -modernize-use-trailing-return-type,
+        cppcoreguidelines-avoid-magic-numbers,
+        readability-identifier-length
+        "

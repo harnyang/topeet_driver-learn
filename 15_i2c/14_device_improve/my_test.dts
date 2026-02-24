@@ -1,0 +1,25 @@
+&i2c1{
+	my-iic_slave_dev:iic-slave1@32{
+		compatible = "my_test";
+		reg = <0x32>; //表示从机的地址
+		reset-gpios = <&gpio0 RK_PB6 GPIO_ACTIVE_LOW>;
+
+		interrupt-parent = <&gpio3>;
+		interrupts = <RK_PA5 IRQ_TYPE_LEVEL_LOW>;
+
+		interrupts-gpios = <&gpio3 RK_PA5 GPIO_ACTIVE_LOW>;
+
+		//pinctrl子系统来设置上面引脚的gpio复用
+		pinctrl-names = "default";
+		pinctrl-0 = <&myft5x06_pins>
+	};
+};
+
+&pinctrl{
+	myft5x06_pins:myft5x06-pins{
+		rockchip.pins = <0 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>,<03 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
+	}//这里必须保证其他的没有使用这个引脚。
+}
+&my-iic_slave_dev{
+	status = "okay";
+};

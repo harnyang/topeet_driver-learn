@@ -1,0 +1,11 @@
+&i2c1{
+	my-iic_slave_dev:iic-slave1@32{
+		compatible = "my_test";
+		reg = <0x32>; //表示从机的地址
+	};
+};
+
+
+&my-iic_slave_dev{
+	status = "okay";
+};

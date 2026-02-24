@@ -1,0 +1,3 @@
+/home/harn/LearnDriver/7_device_tree/23_of_property/23_device_tree_and_platform_driver.ko
+/home/harn/LearnDriver/7_device_tree/23_of_property/23_device_tree_and_platform_driver.o
+
